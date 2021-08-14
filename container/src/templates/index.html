@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block script %}
+    function onInput(e) {
+        textLimit = 500
+        text = document.getElementById("note_ta").value
+        pass1 = document.getElementById("pass1_pass").value
+        pass2 = document.getElementById("pass2_pass").value
+        document.getElementById("submit_btn").disabled = text.trim().length == 0 || text.length > textLimit || pass1 != pass2
+
+        counterLabel = document.getElementById("counter_label")
+        counterLabel.innerHTML = text.length.toString() + "/" + textLimit.toString()
+        if (text.length > textLimit) {
+            counterLabel.classList.add("error")
+            counterLabel.classList.remove("info")
+        } else {
+            counterLabel.classList.remove("error")
+            counterLabel.classList.add("info")
+        }
+
+        passDiffLabel = document.getElementById("pass_diff_label")
+        if (pass1 != pass2) {
+            passDiffLabel.classList.remove("hidden");
+        } else {
+            passDiffLabel.classList.add("hidden");
+        }
+    }
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label>
+            <p>Текст записки:</p>
+            <textarea class="monospaced" id="note_ta" name="text" oninput="onInput()"></textarea>
+        </label>
+        <p id="counter_label"><br></p>
+        <label>
+            <br><p>Пароль (не обязательно):</p>
+            <input id="pass1_pass" type="password" name="password" oninput="onInput()">
+        </label>
+        <label>
+            <p>Ещё раз:</p>
+            <input id="pass2_pass" type="password" oninput="onInput()">
+        </label>
+        <p id="pass_diff_label" class="error hidden">Пароли не совпадают</p>
+        <br><input id="submit_btn" type="submit" disabled value="Создать записку">
+        <div>
+            <p>Записка будет доступна для прочтения лишь один раз, после чего удалится с сервера.
+                Прочитавший её человек сможет оставить на её месте короткое сообщение.</p>
+            <p><a href="{{ url_for('.about') }}">Зачем?</a></p>
+        </div>
+    </form>
+{% endblock %}

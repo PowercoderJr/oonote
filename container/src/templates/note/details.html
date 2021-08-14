@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Статус записки</h1>
+    <table class="centered">
+        <tr>
+            <td class="text_r_aligned">Создана:</td>
+            <td>{{ (note.created_at + tz_offset).strftime('%d.%m.%Y %H:%M:%S') }} {{ tz_name }}</td>
+        </tr>
+        <tr>
+            <td class="text_r_aligned">Прочитана:</td>
+            {% if note.read_at is none %}
+                <td><span class="no">нет</span></td>
+            {% else %}
+                <td><span class="yes">{{ (note.read_at + tz_offset).strftime('%d.%m.%Y %H:%M:%S') }} {{ tz_name }}</span></td>
+            {% endif %}
+        </tr>
+    </table>
+    <br>
+    <p>
+        Ссылка на записку:
+        <br><input class="to_copy" type="text" readonly value="https://oonote.herokuapp.com/{{ note.id_ }}">
+    </p>
+{% endblock %}

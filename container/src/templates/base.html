@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>One-Off Note</title>
+    <link rel="icon" href={{ url_for('static',  filename='images/favicon.svg') }}>
+    <link rel="stylesheet" href={{ url_for('static',  filename='css/main.css') }}>
+    <script type="text/javascript">
+        {% block script %}
+        {% endblock %}
+    </script>
+</head>
+<body>
+    <div class="ribbon">
+        <a href="https://github.com/PowercoderJr/oonote">Check on GitHub</a>
+    </div>
+    <div class="centered logo">
+        <a href="/"><img src={{ url_for('static', filename='images/logo.svg') }} alt="ONE OFF NOTE"/></a>
+    </div>
+    <div class="centered">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

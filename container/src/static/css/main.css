@@ -1,0 +1,86 @@
+@import "ribbon.css";
+
+@font-face {
+    font-family: 'Nunito';
+    src: url('/static/fonts/Nunito-Regular.woff') format('woff');
+}
+
+body {
+    background: url("/static/images/bg.jpg");
+    font-family: Nunito;
+}
+
+p {
+    margin: 0px;
+}
+
+.centered {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    align-content: center;
+}
+
+.logo {
+    margin: 32px auto;
+}
+
+.text_r_aligned {
+    text-align: right;
+}
+
+input[type=text],
+input[type=password],
+input[type=submit],
+textarea {
+    width: 50%;
+    max-width: 500px;
+}
+
+input[type=submit] {
+    height: 40px;
+}
+
+td {
+    padding: 0px 4px;
+}
+
+.monospaced {
+    font-family: "Courier New", serif;
+}
+
+.message {
+    margin: 8px 0px;
+    padding: 4px;
+    background-color: white;
+    border-style: dashed;
+    border-width: 2px;
+    white-space: pre-wrap;
+    overflow-x: scroll;
+    text-align: left;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.info {
+    color: white;
+}
+
+.error,
+.no {
+    color: darkred;
+}
+
+.yes {
+    color: darkgreen;
+}
+
+.to_copy {
+    text-align: center;
+}
+
+#response_form {
+    margin-top: 32px;
+}

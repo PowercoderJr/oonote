@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block script %}
+    function onInput(e) {
+        textLimit = 100
+        text = document.getElementById("msg_ta").value
+        document.getElementById("submit_btn").disabled = text.trim().length == 0 || text.length > textLimit
+
+        counterLabel = document.getElementById("counter_label")
+        counterLabel.innerHTML = text.length.toString() + "/" + textLimit.toString()
+        if (text.length > textLimit) {
+            counterLabel.classList.add("error")
+            counterLabel.classList.remove("info")
+        } else {
+            counterLabel.classList.remove("error")
+            counterLabel.classList.add("info")
+        }
+    }
+{% endblock %}
+
+{% block content %}
+    {% if note.read_at is none %}
+        <div class="message monospaced">
+            <p>{{ note.text | e }}</p>
+        </div>
+        <p>Записка самоуничтожится через 3... 2... 1...</p>
+        <form id="response_form" method="post">
+            <input type="hidden" name="type" value="response">
+            <label>
+                <p>Вы можете оставить сообщение тем, кто зайдёт сюда позже:</p>
+                <textarea class="monospaced" id="msg_ta" name="response" oninput="onInput()"></textarea>
+            </label>
+            <p id="counter_label"><br></p>
+            <br><input id="submit_btn" type="submit" disabled value="Готово">
+        </form>
+    {% else %}
+        <img src="{{ url_for('static', filename='images/fire.svg') }}" width="100">
+        <p>Записка уничтожена.</p>
+            {% if note.response is not none %}
+                <p>Кто-то оставил на её месте сообщение:</p>
+                <div class="message monospaced">
+                    <p>{{ note.response | e }}</p>
+                </div>
+            {% else %}
+                <p>Следов не осталось.</p>
+            {% endif %}
+    {% endif %}
+{% endblock %}
